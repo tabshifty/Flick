@@ -1,6 +1,7 @@
-# flick
+# Flick
 
-A new Flutter project.
+搭配NAS + Jellyfin自用视频应用   
+Jellyfin虽然有对应app,但没有短视频上下滑动浏览的功能
 
 ## Getting Started
 
