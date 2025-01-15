@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/services.dart';
-// import 'package:flutter/cupertino.dart';
 import './progress_controller.dart';
 
 String formatDuration(Duration? duration, bool? long) {
@@ -129,23 +128,11 @@ class _BaseControllerWidget extends State<FullController> {
       onTap:() {
         hanldeTap();
       },
-      // onTapDown: (details) {
-      //   handleInteractionStartTouch();
-      // },
-      // onTapCancel:() {
-      //   timer = Timer(Duration(seconds: 5), () {
-      //     setState(() {
-      //       _showController = false;
-      //     });
-      //   });
-      // },
-      // onTapUp: (details) {
-      //   handleEndTouch();
-      // },
       onHorizontalDragStart: (details) {
         touchStart = details.globalPosition.dx;
         triggerDistance = 0;
         startDuration = widget.controller.value.position;
+        handleInteractionStartTouch();
       },
       onHorizontalDragUpdate: (details) {
         double distance = details.globalPosition.dx - touchStart;
@@ -164,23 +151,13 @@ class _BaseControllerWidget extends State<FullController> {
         } else {
           _dragDuration.value = tmpDuration;
         }
-        // if (triggerDistance > 0) {
-        //   // logger.d(startDuration + Duration(milliseconds: triggerDistance));
-        //   _dragDuration.value = startDuration + Duration(milliseconds: triggerDistance);
-        // } else {
-        //   logger.i('negative');
-        //   // logger.d(startDuration - Duration(milliseconds: triggerDistance.abs()));
-        //   _dragDuration.value = startDuration - Duration(milliseconds: triggerDistance);
-        // }
-        // logger.d(distance);
-        // logger.d(width);
-        
       },
       onHorizontalDragEnd: (details) {
         _showProgress.value = false;
         if (triggerDistance != 0) {
           widget.controller.seekTo(_dragDuration.value);
         }
+        handleEndTouch();
       },
       child: Stack(
         // fit: StackFit.expand,
@@ -337,13 +314,6 @@ class _BaseControllerWidget extends State<FullController> {
           ) : SizedBox.shrink()
         ],
       ),
-      // AbsorbPointer(
-      //   absorbing: !_showController,
-      //   child: Visibility(
-      //     visible: _showController,
-      //     child: 
-      //   )
-      // )
     );
   }
 }
