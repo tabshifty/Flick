@@ -56,7 +56,7 @@ class _ProgressControllerState extends State<ProgressController> {
       },
       onHorizontalDragStart: (details) {
         _pesudoStart.value = widget.controller.value.position.inMilliseconds / widget.controller.value.duration.inMilliseconds;
-        double changed = _pesudoStart.value + (details.localPosition.dx - _start) / _uKey.currentContext!.size!.width;
+        double changed = _pesudoStart.value + (_start === ? 0 : details.localPosition.dx - _start) / _uKey.currentContext!.size!.width;
         _pesudoStart.value = changed > 1 ? 1 : changed < 0 ? 0 : changed;
         _start = details.localPosition.dx;
         _showFake.value = true;
