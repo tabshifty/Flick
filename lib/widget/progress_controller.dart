@@ -76,7 +76,7 @@ class _ProgressControllerState extends State<ProgressController> {
         if (widget.onTouchEnd != null) {
           widget.onTouchEnd!();
         }
-        _start = 0
+        _start = 0;
         widget.controller.seekTo(
           Duration(milliseconds: (widget.controller.value.duration.inMilliseconds * _pesudoStart.value).toInt())
         );
