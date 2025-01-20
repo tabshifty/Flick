@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:flick/helper/helper.dart';
-import 'package:flick/model/media_resource.dart';
+import 'package:Flick/helper/helper.dart';
+import 'package:Flick/model/media_resource.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 // import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:flick/widget/fullplayer.dart';
+import 'package:Flick/widget/fullplayer.dart';
 
 class Management extends StatefulWidget {
   final bool active;

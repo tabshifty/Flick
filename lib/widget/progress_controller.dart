@@ -1,4 +1,4 @@
-import 'package:flick/helper/helper.dart';
+import 'package:Flick/helper/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 

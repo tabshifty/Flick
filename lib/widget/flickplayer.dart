@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 
-import 'package:flick/model/media_resource.dart';
+import 'package:Flick/model/media_resource.dart';
 import './base_controller.dart';
 
 const apiPrefix = '192.168.1.8';

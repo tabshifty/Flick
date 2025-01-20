@@ -128,6 +128,15 @@ class _BaseControllerWidget extends State<FullController> {
       onTap:() {
         hanldeTap();
       },
+      onVerticalDragStart:(details) {
+        
+      },
+      onVerticalDragUpdate: (details) {
+        
+      },
+      onVerticalDragEnd: (details) {
+        
+      },
       onHorizontalDragStart: (details) {
         touchStart = details.globalPosition.dx;
         triggerDistance = 0;

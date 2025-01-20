@@ -1,11 +1,11 @@
-import 'package:flick/model/media_resource.dart';
+import 'package:Flick/model/media_resource.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flick/helper/helper.dart';
+import 'package:Flick/helper/helper.dart';
 
-import 'package:flick/widget/full_flickplayer.dart';
+import 'package:Flick/widget/full_flickplayer.dart';
 import './progress_controller.dart';
 
 String formatDuration(Duration? duration) {

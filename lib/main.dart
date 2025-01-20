@@ -1,5 +1,5 @@
 
-import 'package:flick/page/management.dart';
+import 'package:Flick/page/management.dart';
 import 'package:flutter/material.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'page/feedscreen.dart';

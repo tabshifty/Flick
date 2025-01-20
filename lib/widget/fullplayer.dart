@@ -1,8 +1,8 @@
-import 'package:flick/model/media_resource.dart';
+import 'package:Flick/model/media_resource.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-import 'package:flick/helper/helper.dart';
+import 'package:Flick/helper/helper.dart';
 // import 'package:flick/model/video_resource.dart';
 import './full_controller.dart';
 import 'package:flutter/services.dart';
