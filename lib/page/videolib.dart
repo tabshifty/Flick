@@ -1,9 +1,9 @@
-import 'package:Flick/helper/helper.dart';
+import 'package:flick/helper/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:Flick/model/video_resource.dart';
-import 'package:Flick/widget/shrimmer.dart';
-import 'package:Flick/widget/fullplayer.dart';
+import 'package:flick/model/video_resource.dart';
+import 'package:flick/widget/shrimmer.dart';
+import 'package:flick/widget/fullplayer.dart';
 
 class VideoLibrary extends StatefulWidget{
   final bool active;

@@ -1,8 +1,8 @@
 import 'dart:math';
-import 'package:Flick/model/media_resource.dart';
+import 'package:flick/model/media_resource.dart';
 import 'package:flutter/material.dart';
-import 'package:Flick/helper/helper.dart';
-import 'package:Flick/widget/flickplayer.dart';
+import 'package:flick/helper/helper.dart';
+import 'package:flick/widget/flickplayer.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 

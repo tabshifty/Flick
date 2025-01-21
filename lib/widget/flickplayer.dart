@@ -1,9 +1,9 @@
-import 'package:Flick/helper/helper.dart';
+import 'package:flick/helper/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 
-import 'package:Flick/model/media_resource.dart';
+import 'package:flick/model/media_resource.dart';
 import './base_controller.dart';
 
 class FlickPlayer extends StatefulWidget {
