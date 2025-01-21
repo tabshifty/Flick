@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/services.dart';
+import 'package:volume_controller/volume_controller.dart';
 import './progress_controller.dart';
 
 String formatDuration(Duration? duration, bool? long) {
@@ -36,6 +37,9 @@ class FullController extends StatefulWidget {
 class _BaseControllerWidget extends State<FullController> {
   final ValueNotifier<bool> _showProgress = ValueNotifier<bool>(false);
   final ValueNotifier<Duration> _dragDuration = ValueNotifier<Duration>(Duration(seconds: 0));
+  late final VolumeController _volumeController;
+  late final StreamSubscription<double> _subscription;
+
   bool _showController = false;
   // bool _isTouchDownTriggered = false;
   Timer? timer;
@@ -76,9 +80,10 @@ class _BaseControllerWidget extends State<FullController> {
           });
         });
       });
-
     }
-    
+    _subscription = _volumeController.addListener((volume) {
+      // setState(() => _volumeValue = volume);
+    }, fetchInitialVolume: true);
     super.initState();
   }
 
@@ -129,7 +134,9 @@ class _BaseControllerWidget extends State<FullController> {
         hanldeTap();
       },
       onVerticalDragStart:(details) {
-        
+        touchStart = details.globalPosition.dx;
+        triggerDistance = 0;
+        handleInteractionStartTouch();
       },
       onVerticalDragUpdate: (details) {
         
@@ -166,6 +173,8 @@ class _BaseControllerWidget extends State<FullController> {
         if (triggerDistance != 0) {
           widget.controller.seekTo(_dragDuration.value);
         }
+        touchStart = 0;
+        triggerDistance = 0;
         handleEndTouch();
       },
       child: Stack(
