@@ -19,7 +19,6 @@ class Management extends StatefulWidget {
 }
 
 class _ManagementState extends State<Management> {
-  static const apiPrefix = '192.168.1.8';
   final List<MediaResource> _list = [];
   // bool _isLoading = false;
   bool _firstLoaded = false;
@@ -47,7 +46,7 @@ class _ManagementState extends State<Management> {
 
   Future<void> removeItem(String id, int index) async{
     // ?ApiKey=f2e09af4f8c845fa8bfca0bedb11407d //serverid=569efaacd6a641e5b0f29af671d671fd
-    final String path = 'http://$apiPrefix:8096/Items/$id';
+    final String path = 'http://${Helper.apiPrefix}:8096/Items/$id';
     try {
       await Helper.dio.delete(
         path,
@@ -88,7 +87,7 @@ class _ManagementState extends State<Management> {
   }
   Future<void> removeAllItems() async{
     // ?ApiKey=f2e09af4f8c845fa8bfca0bedb11407d //serverid=569efaacd6a641e5b0f29af671d671fd
-    final String path = 'http://$apiPrefix:8096/Items';
+    final String path = 'http://${Helper.apiPrefix}:8096/Items';
     try {
       await Helper.dio.delete(
         path,

@@ -34,7 +34,7 @@ class _FeedScreenState extends State<FeedScreen> {
     try {
       _isLoading = true;
       final response = await dio.get(
-        'http://$apiPrefix:8096/Users/4940978036c541dab9f28bca7cce44fb/Items',
+        'http://${Helper.apiPrefix}:8096/Users/4940978036c541dab9f28bca7cce44fb/Items',
         queryParameters: {
           'SortBy': 'SortName', //,SortName,ProductionYear,DateCreated
           'SortOrder': 'Descending',
