@@ -1,5 +1,6 @@
 import 'dart:core';
 import 'dart:async';
+import 'package:flick/widget/status_board.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/services.dart';
@@ -37,8 +38,12 @@ class FullController extends StatefulWidget {
 class _BaseControllerWidget extends State<FullController> {
   final ValueNotifier<bool> _showProgress = ValueNotifier<bool>(false);
   final ValueNotifier<Duration> _dragDuration = ValueNotifier<Duration>(Duration(seconds: 0));
+  final ValueNotifier<bool> _showVolume = ValueNotifier(false);
+  final ValueNotifier<double> _volumeValue = ValueNotifier(0);
   late final VolumeController _volumeController;
   late final StreamSubscription<double> _subscription;
+
+  double _deviceWidth = 0;
 
   bool _showController = false;
   // bool _isTouchDownTriggered = false;
@@ -48,7 +53,11 @@ class _BaseControllerWidget extends State<FullController> {
   double touchStart = 0;
   int triggerDistance = 0;
   Duration startDuration = Duration(seconds: 0);
-  // Duration dragDuration = Duration(seconds: 0);
+  
+  // double _volumeValue = 0;
+  double _currentVolume = 0;
+  
+
   Widget buildState() {
     return (!widget.controller.value.isInitialized || widget.controller.value.isBuffering) ?
       const CircularProgressIndicator(
@@ -60,6 +69,7 @@ class _BaseControllerWidget extends State<FullController> {
 
   @override
   void initState() {
+    _deviceWidth = MediaQuery.of(context).size.width;
     if (widget.controller.value.isInitialized) {
       setState(() {
           _showController = true;
@@ -81,10 +91,25 @@ class _BaseControllerWidget extends State<FullController> {
         });
       });
     }
-    _subscription = _volumeController.addListener((volume) {
+    _volumeController = VolumeController.instance;
+    _volumeController.showSystemUI = false;
+    // 监听音量变化
+    _subscription = _volumeController.addListener(
+      (volume) {
       // setState(() => _volumeValue = volume);
-    }, fetchInitialVolume: true);
+        _volumeValue.value = volume;
+      }, 
+      fetchInitialVolume: true
+    );
+    // 获取初始值
+    _volumeController.getVolume().then((volume) => _volumeValue.value = volume);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
   }
 
   void hanldeTap () {
@@ -136,13 +161,30 @@ class _BaseControllerWidget extends State<FullController> {
       onVerticalDragStart:(details) {
         touchStart = details.globalPosition.dx;
         triggerDistance = 0;
+        _currentVolume = _volumeValue.value;
+        if (touchStart >= _deviceWidth / 3) {
+          _showVolume.value = true;
+        }
         handleInteractionStartTouch();
       },
       onVerticalDragUpdate: (details) {
-        
+        double distance = details.globalPosition.dx - touchStart;
+        touchStart = details.globalPosition.dx;
+
+        triggerDistance += distance > 0 ? 1 : -1;
+        double tmpVolume = _currentVolume + triggerDistance / 100;
+        if (_showVolume.value) {
+          if (tmpVolume.isNegative) {
+            _volumeController.setVolume(0);
+          } else if (tmpVolume > 1) {
+            _volumeController.setVolume(1);
+          } else {
+            _volumeController.setVolume(tmpVolume);
+          }
+        }
       },
       onVerticalDragEnd: (details) {
-        
+        _showVolume.value = false;
       },
       onHorizontalDragStart: (details) {
         touchStart = details.globalPosition.dx;
@@ -183,6 +225,25 @@ class _BaseControllerWidget extends State<FullController> {
         children: [
           Center(
             child: buildState(),
+          ),
+          ValueListenableBuilder(
+            valueListenable: _showVolume,
+            builder:(context, value, child) {
+              return AnimatedOpacity(
+                opacity: value ? 1 : 0,
+                duration: Duration(milliseconds: 200),
+                child: Positioned.fill(
+                  child: Center(
+                    child: ValueListenableBuilder(
+                      valueListenable: _volumeValue,
+                      builder:(context, value, child) {
+                        return StatusBoard(value: value);
+                      },
+                    ),
+                  )
+                ),
+              );
+            },
           ),
           ValueListenableBuilder(
             valueListenable: _showProgress,
