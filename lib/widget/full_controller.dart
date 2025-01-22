@@ -185,6 +185,7 @@ class _BaseControllerWidget extends State<FullController> {
       },
       onVerticalDragEnd: (details) {
         _showVolume.value = false;
+        handleEndTouch();
       },
       onHorizontalDragStart: (details) {
         touchStart = details.globalPosition.dx;
